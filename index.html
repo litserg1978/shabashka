@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ШАБАШКА in UA — Чесна робота</title>
+    
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключение шрифта Inter (рубленый, отлично читается на мобильных) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            400: '#fbbf24',
+                            500: '#f59e0b', // Индустриальный янтарный
+                            600: '#d97706',
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-5deg)' },
+                            '50%': { transform: 'rotate(5deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        /* Защита от перекрытия контента прилипающей кнопкой на мобилках */
+        body { padding-bottom: 80px; } 
+        @media (min-width: 768px) { body { padding-bottom: 0; } }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-300 antialiased selection:bg-brand-500 selection:text-slate-900 flex flex-col min-h-screen">
+
+    <header class="w-full bg-slate-950 border-b border-slate-800 py-3 px-4 flex flex-col items-center justify-center gap-3 fixed top-0 z-40 shadow-md">
+        <!-- ОНОВЛЕНЕ ЛОГО -->
+        <div class="flex items-baseline justify-center">
+            <span class="text-3xl md:text-4xl font-black text-slate-100 tracking-tight uppercase">Шабашка</span>
+            <span class="text-xl md:text-2xl font-bold text-slate-500 mx-2 lowercase">in</span>
+            <span class="text-4xl md:text-5xl font-black tracking-tight" style="color: #0057b7;">U</span>
+            <span class="text-4xl md:text-5xl font-black tracking-tight" style="color: #ffd700;">A</span>
+        </div>
+        <!-- КНОПКИ НАВІГАЦІЇ (БЕЗ ЗМІН) -->
+        <nav class="flex gap-3 md:gap-4 text-sm font-semibold w-full max-w-sm justify-center">
+            <a href="#workers" class="flex-1 text-center px-4 py-2 rounded-md bg-slate-800 text-slate-200 hover:bg-slate-700 transition shadow-sm">Шукаю роботу</a>
+            <a href="#employers" class="flex-1 text-center px-4 py-2 rounded-md border border-slate-700 text-brand-500 hover:bg-slate-800 transition shadow-sm bg-slate-900/50">Потрібні люди</a>
+        </nav>
+    </header>
+
+    <!-- Збільшено відступ (pt-32), щоб контент не ховався під вищою шапкою -->
+    <main class="flex-grow pt-32 md:pt-36" id="workers">
+        
+        <section class="px-4 py-8 md:py-16 max-w-4xl mx-auto flex flex-col gap-6">
+            
+            <!-- Лозунг 2: Инлайн-бейдж (компактный) -->
+            <div class="inline-flex items-center gap-2 bg-slate-800/80 border border-slate-700 text-slate-300 rounded-lg px-3 py-1.5 text-xs md:text-sm font-semibold self-start w-auto">
+                <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span>Є можливість працювати позмінно або вахтою!</span>
+            </div>
+            
+            <!-- ОНОВЛЕНИЙ ГОЛОВНИЙ ЗАГОЛОВОК -->
+            <div class="mb-2">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4 tracking-wide">
+                    Робота без резюме, <br class="hidden md:block" />
+                    співбесід та очікувань.
+                </h1>
+                <p class="text-2xl md:text-3xl lg:text-4xl font-black text-brand-500 uppercase tracking-wider">
+                    Хочеш працювати — <br class="block md:hidden" />виходь та заробляй.
+                </p>
+            </div>
+
+            <!-- Буллиты преимуществ вместо абзацев -->
+            <ul class="flex flex-col gap-4 mt-2 mb-2">
+                <li class="flex items-start gap-3">
+                    <svg class="w-6 h-6 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                    <span class="text-base md:text-lg text-slate-200 font-medium">Прямий зв'язок з прямим роботодавцем — жодних посередників!</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <svg class="w-6 h-6 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                    <span class="text-base md:text-lg text-slate-200 font-medium">У вакансіях відразу видно: ЗП, житло, харчування та аванс.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <svg class="w-6 h-6 text-brand-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span class="text-base md:text-lg text-white font-bold">Вихід на роботу вже наступного дня!</span>
+                </li>
+            </ul>
+
+            <!-- Блок "3 вакансии" оформлен аккуратной плашкой -->
+            <div class="bg-slate-800 border-l-4 border-brand-500 p-4 rounded-r-lg mt-2 shadow-md">
+                <p class="text-slate-200 font-semibold text-sm md:text-base">
+                    Відбираємо вручну. Щодня публікуємо лише <span class="text-brand-500 font-bold">3 найкращі вакансії</span>, щоб не витрачати ваш час.
+                </p>
+            </div>
+        </section>
+
+        <!-- ДРУГА ПОЛОВИНА САЙТУ БЕЗ ЗМІН -->
+        <div class="w-full bg-brand-500 py-3 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <p class="text-slate-950 font-black text-lg md:text-2xl uppercase tracking-wider">
+                    Завжди є робота з житлом та харчуванням!
+                </p>
+            </div>
+        </div>
+
+        <section class="py-12 px-4 max-w-5xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-8 text-center">Тільки перевірені роботодавці!</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                <!-- Карточка 1 -->
+                <div class="bg-slate-700 rounded-xl p-6 border border-slate-600 shadow-lg transition-colors hover:bg-slate-600">
+                    <h3 class="text-xl font-bold text-white mb-2">💰 Гроші</h3>
+                    <p class="text-slate-300 text-sm mb-3">Відразу видно, чи передбачений аванс і яка частота виплат.</p>
+                    <p class="text-brand-400 font-bold text-sm uppercase">З грошима допоможемо!</p>
+                </div>
+                <!-- Карточка 2 -->
+                <div class="bg-slate-700 rounded-xl p-6 border border-slate-600 shadow-lg transition-colors hover:bg-slate-600">
+                    <h3 class="text-xl font-bold text-white mb-2">🏠 Житло</h3>
+                    <p class="text-slate-300 text-sm">Чітко вказано, чи надається проживання (так/ні) і які там умови.</p>
+                </div>
+                <!-- Карточка 3 -->
+                <div class="bg-slate-700 rounded-xl p-6 border border-slate-600 shadow-lg transition-colors hover:bg-slate-600">
+                    <h3 class="text-xl font-bold text-white mb-2">🍲 Харчування</h3>
+                    <p class="text-slate-300 text-sm">В оголошеннях 100% вказано, чи забезпечується харчування на об'єкті.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="border-y border-slate-800 py-6 text-center px-4 mb-12 bg-slate-900/50">
+            <p class="text-lg md:text-xl font-bold text-slate-300">
+                Просування працівників із <span class="text-green-500">регулярним підвищенням зарплати!</span>
+            </p>
+        </div>
+
+        <section id="employers" class="py-12 px-4 bg-slate-950 border-t border-slate-800 shadow-inner mt-8">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                    <div class="md:w-2/3">
+                        <div class="inline-block bg-slate-800 text-brand-500 text-xs font-bold px-2 py-1 rounded mb-4 uppercase tracking-wide">B2B Платформа</div>
+                        <h2 class="text-3xl font-black text-white mb-4">Потрібні надійні люди на об'єкт?</h2>
+                        <p class="text-slate-400 mb-6">
+                            Безкоштовне розміщення в нашій базі. Але з жорсткими умовами. Ми приймаємо лише конкретні пропозиції. У заявці обов'язково вказувати статуси щодо <strong class="text-slate-200">житла</strong>, <strong class="text-slate-200">харчування</strong>, <strong class="text-slate-200">авансів</strong> та <strong class="text-slate-200">логістики</strong>.
+                        </p>
+                        <ul class="text-sm text-slate-500 space-y-2 mb-6">
+                            <li>✓ Високий відсоток доїзду кандидатів.</li>
+                            <li>✓ Автоматизована модерація через ШІ-Редактора.</li>
+                            <li>✓ Зниження простоїв на виробництві.</li>
+                        </ul>
+                    </div>
+                    <div class="md:w-1/3 w-full">
+                        <!-- ОЖИВЛЕНА КНОПКА РОБОТОДАВЦІВ: Додано mailto, 3D ефект та анімацію при наведенні -->
+                        <a href="https://t.me/shabashkainua_bot" target="_blank" class="block w-full bg-slate-800 text-brand-500 border-4 border-brand-500 shadow-[4px_4px_0_0_#f59e0b] hover:bg-slate-700 active:shadow-[0_0_0_0_#f59e0b] active:translate-y-[4px] active:translate-x-[4px] font-bold text-center py-4 px-6 rounded-xl transition-all">
+                            Надіслати вакансію<br><span class="text-xs font-normal text-slate-300">в чат-бот (узгодження)</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 text-center px-4 bg-slate-900">
+            <h2 class="text-4xl md:text-6xl font-black text-white uppercase tracking-widest">
+                Починай <span class="text-brand-500">заробляти!</span>
+            </h2>
+            
+            <!-- ОНОВЛЕНА ДЕСКТОПНА КНОПКА (3D СТИЛЬ + АНІМАЦІЯ ПУЛЬСАЦІЇ) -->
+            <div class="hidden md:flex justify-center mt-12">
+                <a href="https://t.me/shabashka_in_ua" target="_blank" class="group relative inline-flex items-center justify-center gap-3 bg-slate-100 text-slate-900 border-4 border-brand-500 shadow-[6px_6px_0_0_#f59e0b] hover:bg-white active:shadow-[0_0_0_0_#f59e0b] active:translate-y-[6px] active:translate-x-[6px] transition-all font-black text-xl py-5 px-10 rounded-xl animate-pulse-slow">
+                    <svg class="w-8 h-8 text-brand-500 group-hover:animate-wiggle transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                    <span class="uppercase tracking-wider">Дивитися вакансії в ТГ</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ОНОВЛЕНА МОБІЛЬНА КНОПКА (3D СТИЛЬ + АНІМАЦІЯ) -->
+    <div class="fixed bottom-0 left-0 w-full p-4 bg-gradient-to-t from-slate-950 via-slate-950/95 to-transparent z-50 md:hidden flex justify-center pb-6 pointer-events-none">
+        <a href="https://t.me/shabashka_in_ua" target="_blank" class="group relative w-full max-w-sm flex items-center justify-center gap-3 bg-slate-100 text-slate-900 border-4 border-brand-500 shadow-[4px_4px_0_0_#f59e0b] active:shadow-[0_0_0_0_#f59e0b] active:translate-y-[4px] active:translate-x-[4px] transition-all font-black text-xl py-4 px-6 rounded-xl animate-pulse-slow pointer-events-auto">
+            <!-- Іконка Telegram -->
+            <svg class="w-7 h-7 text-brand-500 shrink-0 group-hover:animate-wiggle" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.888-.662 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            <span class="tracking-wide uppercase">Дивитися вакансії</span>
+        </a>
+    </div>
+
+    <!-- ОНОВЛЕНИЙ ФУТЕР З ПОШТОЮ -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-10 md:mb-0 mb-24">
+        <div class="max-w-4xl mx-auto px-4 text-center flex flex-col items-center justify-center gap-4">
+            
+            <div class="flex items-baseline justify-center opacity-40">
+                <span class="text-2xl font-black text-slate-100 tracking-tight uppercase">Шабашка</span>
+                <span class="text-sm font-bold text-slate-500 mx-1 lowercase">in</span>
+                <span class="text-2xl font-black tracking-tight" style="color: #0057b7;">U</span>
+                <span class="text-2xl font-black tracking-tight" style="color: #ffd700;">A</span>
+            </div>
+            
+            <div class="flex flex-col gap-1 mt-2">
+                <p class="text-slate-500 text-sm font-semibold">
+                    Маєте пропозиції чи запитання? Пишіть нам:
+                </p>
+                <a href="mailto:shabashkainua@gmail.com" class="text-brand-500 font-bold hover:text-brand-400 hover:underline text-lg transition-colors">
+                    shabashkainua@gmail.com
+                </a>
+            </div>
+
+            <p class="text-slate-700 text-xs mt-4">
+                &copy; 2026 Шабашка in UA. Всі права захищені.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
