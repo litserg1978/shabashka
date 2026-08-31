@@ -3,13 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ШАБАШКА in UA — Чесна робота</title>
-    
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J4THMYNNED"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-J4THMYNNED');
+    </script>
+
+    <!-- Основное SEO -->
+    <title>Пошук роботи та фахівців в Україні | Shabashka</title>
+    <meta name="description" content="Сервіс швидкого пошуку роботи, підробітку та перевірених виконавців в Україні. Зручні замовлення та прямі контакти без посередників.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://shabashka.in.ua/">
+
+    <!-- Open Graph (для красивых ссылок в Telegram/Viber) -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="uk_UA">
+    <meta property="og:url" content="https://shabashka.in.ua/">
+    <meta property="og:title" content="Shabashka — Пошук роботи та виконавців">
+    <meta property="og:description" content="Швидкий підробіток та пошук майстрів в Україні.">
+    <meta property="og:site_name" content="Shabashka">
+
     <!-- Подключение Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Подключение шрифта Inter (рубленый, отлично читается на мобильных) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
-    
+
     <script>
         tailwind.config = {
             theme: {
@@ -41,7 +64,7 @@
     <style>
         html { scroll-behavior: smooth; }
         /* Защита от перекрытия контента прилипающей кнопкой на мобилках */
-        body { padding-bottom: 80px; } 
+        body { padding-bottom: 80px; }
         @media (min-width: 768px) { body { padding-bottom: 0; } }
     </style>
 </head>
