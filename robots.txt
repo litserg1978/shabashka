@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shabashka.in.ua/sitemap.xml

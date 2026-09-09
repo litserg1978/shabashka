@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SHABASHKA in UA">
+  <rect width="64" height="64" rx="14" fill="#0f172a"/>
+  <circle cx="32" cy="29" r="18" fill="#065f46"/>
+  <path d="M21 29.5 28.5 37 44 21.5" fill="none" stroke="#ecfdf5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M14 53h18" stroke="#0057b7" stroke-width="4" stroke-linecap="round"/>
+  <path d="M32 53h18" stroke="#ffd700" stroke-width="4" stroke-linecap="round"/>
+</svg>
