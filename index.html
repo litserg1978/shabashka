@@ -75,6 +75,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/dynamic-cards.css">
 </head>
 <body class="bg-slate-900 text-slate-300 antialiased selection:bg-brand-500 selection:text-slate-900 flex flex-col min-h-screen">
 
@@ -332,7 +333,7 @@
         function roleRows(roles) {
             if (!Array.isArray(roles) || !roles.length) return '';
             return `
-                <div class="mt-4 divide-y divide-slate-700 rounded-xl border border-slate-700 bg-slate-900/55 px-4">
+                <div class="role-list mt-4 divide-y divide-slate-700 rounded-xl border border-slate-700 bg-slate-900/55 px-4">
                     ${roles.map(role => `
                         <div class="flex items-start justify-between gap-4 py-3">
                             <span class="text-sm text-slate-300">${escapeHtml(role.name)}</span>
@@ -341,11 +342,49 @@
                 </div>`;
         }
 
-        function vacancyCard(vacancy) {
+        function visibleText(value) {
+            const text = String(value || '').trim();
+            return Boolean(text) && text !== '-' && !/^(нет|немає|не надається|не предоставляется)$/i.test(text);
+        }
+
+        function extractRoles(vacancy) {
+            if (Array.isArray(vacancy.roles) && vacancy.roles.length) return vacancy.roles;
+
+            const parts = String(vacancy.salaryNote || '')
+                .split(';')
+                .map(part => part.trim())
+                .filter(Boolean);
+
+            if (parts.length < 2) return [];
+
+            const roles = parts.map(part => {
+                const pieces = part.split(/\s+[—–-]\s+/);
+                if (pieces.length < 2) return null;
+                const name = pieces.shift().trim();
+                const salary = pieces.join(' — ').trim();
+                return name && salary && /\d/.test(salary) ? { name, salary } : null;
+            }).filter(Boolean);
+
+            return roles.length >= 2 ? roles : [];
+        }
+
+        function renderVacancyCards(vacancies) {
+            const themes = vacancies.map(vacancy => vacancy.theme === 'amber' ? 'amber' : 'blue');
+            const diversifyThemes = vacancies.length > 1 && new Set(themes).size === 1;
+
+            return vacancies.map((vacancy, index) => {
+                const displayTheme = diversifyThemes
+                    ? (index % 2 === 0 ? 'blue' : 'amber')
+                    : themes[index];
+                return vacancyCard(vacancy, displayTheme);
+            }).join('');
+        }
+
+        function vacancyCard(vacancy, displayTheme = 'blue') {
             const vacancyId = String(vacancy.vacancyId || '').trim();
             const payload = `${vacancyId}_site_SITE_HOME`;
             const responseUrl = `${WORKER_BOT_URL}?start=${encodeURIComponent(payload)}`;
-            const blueTheme = vacancy.theme === 'blue';
+            const blueTheme = displayTheme === 'blue';
             const topLineClass = blueTheme
                 ? 'from-blue-600 via-sky-400 to-blue-700'
                 : 'from-brand-500 via-yellow-300 to-brand-600';
@@ -366,6 +405,10 @@
                     { label: 'Харчування', value: vacancy.food, icon: '🍲' },
                     { label: 'Аванс', value: vacancy.advance, icon: '💳' }
                 ];
+            const roles = extractRoles(vacancy);
+            const badgeText = roles.length >= 2 ? `${roles.length} позиції` : (vacancy.badge || 'Актуально');
+            const salaryNote = roles.length >= 2 ? 'Оплата залежить від обраної посади' : vacancy.salaryNote;
+            const transport = visibleText(vacancy.transport) ? String(vacancy.transport).trim() : '';
             const publishedDate = vacancy.publishedAt
                 ? new Intl.DateTimeFormat('uk-UA', {
                     day: '2-digit',
@@ -377,12 +420,12 @@
                 : '';
 
             return `
-                <article class="relative overflow-hidden flex flex-col rounded-2xl border border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 shadow-lg">
+                <article class="vacancy-card vacancy-card--${blueTheme ? 'blue' : 'amber'} relative overflow-hidden flex flex-col rounded-2xl border border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 shadow-lg">
                     <div class="absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${topLineClass}"></div>
                     <div class="p-5 md:p-6 flex flex-col flex-grow">
                         <div class="flex items-start justify-between gap-4 mb-4">
                             <span class="inline-flex items-center rounded-full border ${badgeClass} px-3 py-1 text-xs font-bold uppercase tracking-wide">
-                                ${escapeHtml(vacancy.badge || 'Актуально')}
+                                ${escapeHtml(badgeText)}
                             </span>
                             ${publishedDate ? `<span class="text-xs text-slate-500">Оновлено ${escapeHtml(publishedDate)}</span>` : ''}
                         </div>
@@ -403,10 +446,19 @@
                         <div class="mt-5 rounded-xl ${salaryClass} px-4 py-3">
                             <p class="text-xs uppercase tracking-wide font-bold opacity-75">Заробітна плата</p>
                             <p class="text-xl md:text-2xl font-black mt-0.5">${escapeHtml(vacancy.salary || 'Уточнюється')}</p>
-                            ${vacancy.salaryNote ? `<p class="text-sm mt-1 opacity-80">${escapeHtml(vacancy.salaryNote)}</p>` : ''}
+                            ${salaryNote ? `<p class="text-sm mt-1 opacity-80">${escapeHtml(salaryNote)}</p>` : ''}
                         </div>
 
-                        ${roleRows(vacancy.roles)}
+                        ${roleRows(roles)}
+
+                        ${transport ? `
+                            <div class="transport-strip mt-4 rounded-xl px-4 py-3">
+                                <span class="transport-strip__icon" aria-hidden="true">🚌</span>
+                                <div>
+                                    <p class="transport-strip__label">Транспорт</p>
+                                    <p class="transport-strip__value">${escapeHtml(transport)}</p>
+                                </div>
+                            </div>` : ''}
 
                         <div class="grid grid-cols-2 gap-2 mt-4">
                             ${facts.map(item => fact(item.label, item.value, item.icon)).join('')}
@@ -429,7 +481,7 @@
             const grid = document.getElementById('vacancy-grid');
             const empty = document.getElementById('vacancy-empty');
 
-            grid.innerHTML = INITIAL_VACANCIES.map(vacancyCard).join('');
+            grid.innerHTML = renderVacancyCards(INITIAL_VACANCIES);
             grid.classList.remove('hidden');
             grid.classList.add('grid');
             loading.classList.add('hidden');
@@ -464,7 +516,7 @@
                     return;
                 }
 
-                grid.innerHTML = vacancies.map(vacancyCard).join('');
+                grid.innerHTML = renderVacancyCards(vacancies);
             } catch (error) {
                 empty.classList.add('hidden');
             }
